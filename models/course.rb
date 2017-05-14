@@ -1,68 +1,90 @@
+require 'colorize'
+
 require_relative 'hole.rb'
+require_relative '../lib/print_util.rb'
 
 class Course
-  @@courses
-  attr_accessor :name, :symbol, :holes
+  attr_reader :name, :symbol, :holes
 
-  def initialize
-    @name = ""
-    @symbol = ""
-    @holes = []
+  def initialize(name, symbol, holes)
+    @name = name
+    @symbol = symbol
+    @holes = holes
   end
 
-  def self.load_all
-    course_files = Dir["courses/*"]
+  def to_s
+    return @name
+  end
+
+  def self.load_all(path)
+    return @@courses if defined? @@courses
+    course_files = Dir["data/courses/*"]
     @@courses = []
+    course_files = Dir[path]
     course_files.each do |course_file|
-      File.open(course_file, "r") do |file|
-        course = Course.new
-        pars = []
-        handicaps = []
-        index = 0
-        file.each_line do |l|
-          case index
-          when 0
-            course.name = l
-          when 1
-            course.symbol = l
-          when 2
-            pars = l.split(',')
-          when 3
-            handicaps = l.split(',')
-          else
-            throw "Course file has incorrect format: " + course_file
-          end
-          index += 1
+      name = nil
+      symbol = nil
+      pars = []
+      handicaps = []
+      File.foreach(course_file).with_index do |l, i|
+        case i
+        when 0
+          name = l.strip
+        when 1
+          symbol = l.strip
+        when 2
+          pars = l.split(',').map(&:to_i)
+          bad_format course_file if (pars.length != 18)
+        when 3
+          handicaps = l.split(',').map(&:to_i)
+          bad_format course_file if (handicaps.length != 18)
+        else
+          bad_format course_file
         end
-        (0...18).each do |i|
-          hole = Hole.new
-          hole.par = pars[i].to_i
-          hole.handicap = handicaps[i].to_i
-          course.holes << hole
-        end
-        @@courses << course
+      end
+      holes = []
+      pars.each_with_index do |par, i|
+        holes << Hole.new(par, handicaps[i])
+      end
+      @@courses << Course.new(name, symbol, holes)
+    end
+  end
+
+  def self.bad_format(file)
+    throw "Course file has incorrect format: " + file
+  end
+
+  def self.get(symbol)
+    @@courses.each do |course|
+      if course.symbol === symbol
+        return course
       end
     end
+    return nil
   end
 
   def self.print_all
     @@courses.each do |course|
-      puts "-" * 75
-      puts "Course: " + course.name
-      print "Handi: "
-      course.holes.each do |hole|
-        print "%2d  " % hole.handicap
+      total_front = 0
+      total_back = 0
+      total = 0
+      handicaps = []
+      pars = []
+      course.holes.each_with_index do |hole, i|
+        pars << hole.par
+        handicaps << hole.handicap
+        total += hole.par
+        if i < 9
+          total_front += hole.par
+        else
+          total_back += hole.par
+        end
       end
-      print "\n"
-      par = 0
-      print "Par:   "
-      course.holes. each do |hole|
-        par += hole.par
-        print "%2d  " % hole.par
-      end
-      print "   Par: " + par.to_s
-      puts "\n\n"
+      PrintUtil.print_card_header("Course: " + course.to_s)
+      PrintUtil.print_card_line('', (1..18).to_a)
+      PrintUtil.print_card_line('Par', pars, total_front, total_back, total)
+      PrintUtil.print_card_line('Hcp', handicaps)
+      puts
     end
   end
 end
-

@@ -1,8 +1,8 @@
 class Hole
-  attr_accessor :par, :handicap
+  attr_reader :par, :handicap
 
-  def initialize
-    @par = nil
-    @handicap = nil
+  def initialize(par, handicap)
+    @par = par
+    @handicap = handicap
   end
 end
