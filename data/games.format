@@ -1,0 +1,4 @@
+Format: round,game
+Definitions:
+- round: round #
+- game: game symbol

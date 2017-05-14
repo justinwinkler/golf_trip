@@ -1,0 +1,4 @@
+Format: round,course
+Definitions:
+- round: round #
+- course: symbol of course
