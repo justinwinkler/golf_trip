@@ -19,10 +19,10 @@ class Round
     return nil
   end
 
-  def self.load_all(path)
+  def self.load_all(trip)
     return @@rounds if defined? @@rounds
     @@rounds = []
-    File.foreach(path).with_index do |l, i|
+    File.foreach("data/" + trip + "/rounds.txt").with_index do |l, i|
       values = l.strip.split(',')
       course = Course.get(values[1])
       @@rounds << Round.new(values[0].to_i, course)

@@ -20,10 +20,10 @@ class Player
     @player_rounds << player_round
   end
 
-  def self.load_all(path)
+  def self.load_all(trip)
     return @@players if defined? @@players
     @@players = []
-    player_files = Dir[path]
+    player_files = Dir["data/" + trip + "/players/*"]
     player_files.each do |player_file|
       name = nil
       symbol = nil

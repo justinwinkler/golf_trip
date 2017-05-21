@@ -16,11 +16,10 @@ class Course
     return @name
   end
 
-  def self.load_all(path)
+  def self.load_all(trip)
     return @@courses if defined? @@courses
-    course_files = Dir["data/courses/*"]
     @@courses = []
-    course_files = Dir[path]
+    course_files = Dir["data/" + trip + "/courses/*"]
     course_files.each do |course_file|
       name = nil
       symbol = nil
