@@ -1,4 +1,19 @@
 class PrintUtil
+  def self.print_matrix(players, matrix)
+    print " "  * 10
+    players.each do |player|
+      print player.name.rjust(10)
+    end
+    puts
+    matrix.row_vectors.each_with_index do |row, i|
+      print players[i].name.rjust(10)
+      row.each do |v|
+        print v.to_s.rjust(10)
+      end
+      puts
+    end
+  end
+
   def self.print_round_header(round_number)
     puts ("-" * 50).yellow
     print "|".yellow

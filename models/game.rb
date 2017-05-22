@@ -3,12 +3,20 @@ require_relative 'games/skins.rb'
 require_relative 'games/vegas.rb'
 
 class Game
-  attr_reader :rules, :round, :player_rounds
+  attr_reader :payment_matrix, :rules, :round, :player_rounds
 
   def initialize(rules, round, player_rounds)
     @rules = rules
     @round = round
     @player_rounds = player_rounds
+  end
+
+  def run
+    @payment_matrix = rules.run(player_rounds)
+  end
+
+  def print
+    PrintUtil.print_matrix(@player_rounds.map(&:player), @payment_matrix)
   end
 
   def to_s
@@ -29,7 +37,7 @@ class Game
   end
 
   def self.print_all
-    puts "TODO"
+    @@games.each(&:print)
   end
 
   def self.get_rules_class(symbol)
@@ -44,8 +52,6 @@ class Game
   end
 
   def self.run_all
-    @@games.each do |game|
-      puts game
-    end
+    @@games.each(&:run)
   end
 end
