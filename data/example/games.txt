@@ -1,7 +1,3 @@
-# Format: round,game
-# Definitions:
-# - round: round #
-# - game: game symbol
 1,VEGAS
 2,SKINS
 3,VEGAS

@@ -48,6 +48,7 @@ class Player
       @@players << player
       @@players.sort_by!(&:name)
     end
+    return @@players
   end
 
   def self.print_all
@@ -62,5 +63,9 @@ class Player
     @@players.each do |player|
       player.player_rounds[number - 1].print
     end
+  end
+
+  def self.get_player_rounds(number)
+    return @@players.map(&:player_rounds).map {|rounds| rounds[number - 1] }
   end
 end

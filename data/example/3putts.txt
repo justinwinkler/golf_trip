@@ -1,7 +1,2 @@
-# Format: round,putter,count
-# Definitions:
-# - round: Round #
-# - putter: player symbol of putter
-# - count: count of 3 putts for that round by the putter
-1,JUSTIN,2
-1,CHAD,3
+1,PLAYER2,1
+1,PLAYER4,2
