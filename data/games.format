@@ -1,4 +1,6 @@
-Format: round,game
+Format: round,game,players,hole_count
 Definitions:
 - round: round #
 - game: game symbol
+- players: players in the game, in the order to be paired up
+- hole_count: number of holes players are paired up before rotating

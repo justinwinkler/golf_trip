@@ -3,24 +3,54 @@ require_relative 'games/skins.rb'
 require_relative 'games/vegas.rb'
 
 class Game
-  attr_reader :payment_matrix, :rules, :round, :player_rounds
+  attr_reader :player_matrix, :rules, :round, :players, :hole_count
 
-  def initialize(rules, round, player_rounds)
+  def initialize(rules, round, players, hole_count)
     @rules = rules
     @round = round
-    @player_rounds = player_rounds
+    @players = players
+    @hole_count = hole_count
   end
 
   def run
-    @payment_matrix = rules.run(player_rounds)
-  end
-
-  def print
-    PrintUtil.print_matrix(@player_rounds.map(&:player), @payment_matrix)
+    team_matrix = Game.team_matrix(players, hole_count)
+    team_matrix.each_with_index do |hole, i|
+      print "Hole " + (i + 1).to_s
+      hole.each do |pair|
+        print " : " + pair[0].to_s + " & " + pair[1].to_s
+      end
+      puts
+    end
+    @player_matrix = rules.run(team_matrix, round)
   end
 
   def to_s
     return "Round %s, %s" % [round.number, rules.class.name]
+  end
+
+  def self.team_matrix(players, hole_count)
+    result = []
+    pairs = players.combination(2).to_a
+    remaining_pairs = pairs.clone
+    (0..18).each do
+      remaining_pairs = pairs.clone if remaining_pairs.empty?
+      hole_pairs = []
+      players_included = []
+      pairs_to_delete = []
+      remaining_pairs.each_with_index do |pair, i|
+        if !players_included.include?(pair[0]) && !players_included.include?(pair[1])
+          players_included << pair[0]
+          players_included << pair[1]
+          hole_pairs << pair
+          pairs_to_delete << i
+        end
+      end
+      pairs_to_delete.reverse.each do |i|
+        remaining_pairs.delete_at(i)
+      end
+      result << hole_pairs
+    end
+    return result
   end
 
   def self.load_all(trip)
@@ -30,14 +60,20 @@ class Game
       values = l.strip.split(',')
       round = Round.get(values[0].to_i)
       rules_class = get_rules_class(values[1])
-      game = Game.new(rules_class.new, round, Player.get_player_rounds(round.number))
+      players = values[2].split('|').map do |symbol|
+        Player.get(symbol)
+      end
+      hole_count = values[3].to_i
+      game = Game.new(rules_class.new, round, players, hole_count)
       @@games << game
     end
     return @@games
   end
 
   def self.print_all
-    @@games.each(&:print)
+    @@games.each do |game|
+      PrintUtil.print_matrix(game.players, game.player_matrix)
+    end
   end
 
   def self.get_rules_class(symbol)

@@ -1,7 +1,8 @@
 require 'matrix'
+require_relative '../player.rb'
 
 class Vegas
-  def run(player_rounds)
-    return Matrix[[1,2,3,4,5,6,7,8],[2,3,4,5,6,7,8,1],[3,4,5,6,7,8,1,2],[4,5,6,7,8,1,2,3],[5,6,7,8,1,2,3,4],[6,7,8,1,2,3,4,5],[7,8,1,2,3,4,5,6],[8,1,2,3,4,5,6,7]]
+  def run(team_matrix, round)
+    return Matrix[]
   end
 end

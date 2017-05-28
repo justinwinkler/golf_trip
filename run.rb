@@ -16,5 +16,7 @@ Player.load_all(trip)
 Player.print_all
 
 Game.load_all(trip)
+
 Game.run_all
+
 Game.print_all

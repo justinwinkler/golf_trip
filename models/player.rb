@@ -20,6 +20,15 @@ class Player
     @player_rounds << player_round
   end
 
+  def self.get(symbol)
+    @@players.each do |player|
+      if player.symbol == symbol
+        return player
+      end
+    end
+    throw "Unknown player: " + symbol
+  end
+
   def self.load_all(trip)
     return @@players if defined? @@players
     @@players = []
@@ -63,9 +72,5 @@ class Player
     @@players.each do |player|
       player.player_rounds[number - 1].print
     end
-  end
-
-  def self.get_player_rounds(number)
-    return @@players.map(&:player_rounds).map {|rounds| rounds[number - 1] }
   end
 end
