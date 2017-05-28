@@ -1,3 +1,4 @@
+require_relative '../lib/data_util.rb'
 require_relative 'player.rb'
 require_relative 'games/skins.rb'
 require_relative 'games/vegas.rb'
@@ -26,31 +27,6 @@ class Game
 
   def to_s
     return "Round %s, %s" % [round.number, rules.class.name]
-  end
-
-  def self.team_matrix(players, hole_count)
-    result = []
-    pairs = players.combination(2).to_a
-    remaining_pairs = pairs.clone
-    (0..18).each do
-      remaining_pairs = pairs.clone if remaining_pairs.empty?
-      hole_pairs = []
-      players_included = []
-      pairs_to_delete = []
-      remaining_pairs.each_with_index do |pair, i|
-        if !players_included.include?(pair[0]) && !players_included.include?(pair[1])
-          players_included << pair[0]
-          players_included << pair[1]
-          hole_pairs << pair
-          pairs_to_delete << i
-        end
-      end
-      pairs_to_delete.reverse.each do |i|
-        remaining_pairs.delete_at(i)
-      end
-      result << hole_pairs
-    end
-    return result
   end
 
   def self.load_all(trip)
