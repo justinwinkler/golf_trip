@@ -1,5 +1,5 @@
 class DataUtil
-  # Producs a matrix with 18 rows (1 per hole), each row an array of arrays,
+  # Produces a matrix with 18 rows (1 per hole), each row an array of arrays,
   # the inner arrays representing pairs of players teamed up for that hole.
   def self.team_matrix(players, hole_count)
     result = []

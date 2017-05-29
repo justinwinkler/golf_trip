@@ -47,6 +47,29 @@ RSpec.describe DataUtil, ".team_matrix" do
       [[1,4], [2,3]]])
   end
 
+  it "produces expected result for 4-some that cycles partners @ 3 holes" do
+    result = DataUtil.team_matrix [1,2,3,4], 3
+    expect(result).to eq([
+      [[1,2], [3,4]],
+      [[1,2], [3,4]],
+      [[1,2], [3,4]],
+      [[1,3], [2,4]],
+      [[1,3], [2,4]],
+      [[1,3], [2,4]],
+      [[1,4], [2,3]],
+      [[1,4], [2,3]],
+      [[1,4], [2,3]],
+      [[1,2], [3,4]],
+      [[1,2], [3,4]],
+      [[1,2], [3,4]],
+      [[1,3], [2,4]],
+      [[1,3], [2,4]],
+      [[1,3], [2,4]],
+      [[1,4], [2,3]],
+      [[1,4], [2,3]],
+      [[1,4], [2,3]]])
+  end
+
   it "produces expected result for 4-some that cycles partners every hole" do
     result = DataUtil.team_matrix [1,2,3,4], 1
     expect(result).to eq([
@@ -70,7 +93,7 @@ RSpec.describe DataUtil, ".team_matrix" do
       [[1,4], [2,3]]])
   end
 
-  it "produces expected result for 8-some" do
+  it "produces expected result for 8-some that cycles partners every hole" do
     result = DataUtil.team_matrix [1,2,3,4,5,6,7,8], 1
     expect(result).to eq([
       [[1,2], [3,4], [5,6], [7,8]],
