@@ -1,4 +1,16 @@
+require_relative '../models/course.rb'
+require_relative '../models/game.rb'
+require_relative '../models/player.rb'
+require_relative '../models/round.rb'
+
 class DataUtil
+  def self.load(trip)
+    Course.load_all(trip)
+    Round.load_all(trip)
+    Player.load_all(trip)
+    Game.load_all(trip)
+  end
+
   # Produces a matrix with 18 rows (1 per hole), each row an array of arrays,
   # the inner arrays representing pairs of players teamed up for that hole.
   def self.team_matrix(players, hole_count)

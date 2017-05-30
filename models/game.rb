@@ -29,6 +29,10 @@ class Game
     return "Round %s, %s" % [round.number, rules.class.name]
   end
 
+  def self.all
+    return @@games
+  end
+
   def self.load_all(trip)
     return @@games if defined? @@games
     @@games = []
