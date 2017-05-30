@@ -14,15 +14,11 @@ class Game
   end
 
   def run
-    team_matrix = Game.team_matrix(players, hole_count)
-    team_matrix.each_with_index do |hole, i|
-      print "Hole " + (i + 1).to_s
-      hole.each do |pair|
-        print " : " + pair[0].to_s + " & " + pair[1].to_s
-      end
-      puts
+    players_and_rounds = @players.map do |player|
+      {player: player, player_round: player.player_rounds[@round]}
     end
-    @player_matrix = rules.run(team_matrix, round)
+    team_matrix = Game.team_matrix(players_and_rounds, hole_count)
+    @player_matrix = rules.run(team_matrix)
   end
 
   def to_s
