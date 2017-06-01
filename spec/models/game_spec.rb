@@ -16,4 +16,15 @@ RSpec.describe Game do
       expect(@game.hole_count).to eq(1)
     end
   end
+
+  describe ".players_and_rounds_matrix" do
+    it "produces expected matrix" do
+      result = Game.players_and_rounds_matrix(Player.all, 2)
+      expect(result.length).to eq(8)
+      expect(result[0][:player]).to eq(Player.all[0])
+      expect(result[0][:player_round]).to eq(Player.all[0].player_rounds[1])
+      expect(result[7][:player]).to eq(Player.all[7])
+      expect(result[7][:player_round]).to eq(Player.all[7].player_rounds[1])
+    end
+  end
 end

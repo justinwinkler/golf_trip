@@ -14,15 +14,23 @@ class Game
   end
 
   def run
-    players_and_rounds = @players.map do |player|
-      {player: player, player_round: player.player_rounds[@round]}
-    end
-    team_matrix = Game.team_matrix(players_and_rounds, hole_count)
+    team_matrix =
+      DataUtil.team_matrix(
+        players_and_rounds_matrix(players, round.number), hole_count)
     @player_matrix = rules.run(team_matrix)
   end
 
   def to_s
     return "Round %s, %s" % [round.number, rules.class.name]
+  end
+
+  def self.players_and_rounds_matrix(players, round_number)
+    return players.map do |player|
+      player_round = player.player_rounds.find do |x|
+        x.round.number == round_number
+      end
+      {player: player, player_round: player_round}
+    end
   end
 
   def self.all

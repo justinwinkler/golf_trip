@@ -20,6 +20,10 @@ class Player
     @player_rounds << player_round
   end
 
+  def self.all
+    return @@players
+  end
+
   def self.get(symbol)
     @@players.each do |player|
       if player.symbol == symbol
