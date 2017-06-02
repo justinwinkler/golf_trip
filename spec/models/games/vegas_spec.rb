@@ -19,6 +19,14 @@ RSpec.describe Vegas do
       players_and_rounds_matrix = Game.players_and_rounds_matrix(Player.all, 1)
       team_matrix = DataUtil.team_matrix(players_and_rounds_matrix, 1)
       result = vegas.run(team_matrix, Course.get('OK'))
+      expect(result[Player.all[0]]).to eq(49)
+      expect(result[Player.all[1]]).to eq(51)
+      expect(result[Player.all[2]]).to eq(0)
+      expect(result[Player.all[3]]).to eq(66)
+      expect(result[Player.all[4]]).to eq(43)
+      expect(result[Player.all[5]]).to eq(77)
+      expect(result[Player.all[6]]).to eq(98)
+      expect(result[Player.all[7]]).to eq(34)
     end
   end
 

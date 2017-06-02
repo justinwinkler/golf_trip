@@ -16,8 +16,15 @@ class Game
   def run
     team_matrix =
       DataUtil.team_matrix(
-        players_and_rounds_matrix(players, round.number), hole_count)
-    @player_matrix = rules.run(team_matrix)
+        Game.players_and_rounds_matrix(players, round.number), hole_count)
+    team_matrix.each_with_index do |hole, i|
+      print "Hole " + (i + 1).to_s
+      hole.each do |team|
+        print ": " + team[0][:player].symbol + " & " + team[1][:player].symbol
+      end
+      puts
+    end
+    @player_matrix = rules.run(team_matrix, @round.course)
   end
 
   def to_s
