@@ -4,23 +4,29 @@ require_relative 'games/skins.rb'
 require_relative 'games/vegas.rb'
 
 class Game
-  attr_reader :player_matrix, :rules, :round, :players, :hole_count
+  attr_reader :player_matrix, :rules, :round, :players, :hole_count, :team_size, :options
 
-  def initialize(rules, round, players, hole_count)
+  def initialize(rules, round, players, hole_count, team_size, options)
     @rules = rules
     @round = round
     @players = players
     @hole_count = hole_count
+    @team_size = team_size
+    @options = options
   end
 
   def run
     team_matrix =
       DataUtil.team_matrix(
-        Game.players_and_rounds_matrix(players, round.number), hole_count)
+        Game.players_and_rounds_matrix(players, round.number), hole_count, team_size)
     team_matrix.each_with_index do |hole, i|
       print "Hole " + (i + 1).to_s
       hole.each do |team|
-        print ": " + team[0][:player].symbol + " & " + team[1][:player].symbol
+        print ' : '
+        team.each_with_index do |player, j|
+          print ' & ' if j > 0
+          print player[:player].symbol
+        end
       end
       puts
     end
@@ -59,7 +65,12 @@ class Game
         Player.get(symbol)
       end
       hole_count = values[3].to_i
-      game = Game.new(rules_class.new, round, players, hole_count)
+      team_size = values[4].to_i
+      options = {}
+      (values[5] || '').split('|').each do |key_value|
+        options[key_value.split('=')[0].to_sym] = key_value.split('=')[1]
+      end
+      game = Game.new(rules_class.new, round, players, hole_count, team_size, options)
       @@games << game
     end
     return @@games

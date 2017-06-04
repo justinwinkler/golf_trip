@@ -9,7 +9,7 @@
 # Double-digit player scores carry over, e.g. 4 + 10 -> 50, but any flipping
 # is done before the combination, e.g. 4 + 10 -> 10 + 4 -> 104
 class Vegas
-  def run(team_matrix, course)
+  def run(team_matrix, course, options = {})
     player_points = {}
     team_matrix[0].each do |team|
       player_points[team[0][:player]] = 0
@@ -19,12 +19,15 @@ class Vegas
       team_scores = []
       low_score = 1_000
       hole.each do |team|
+        players = []
+        scores = []
+        team.each do |player|
+          players << player[:player]
+          scores << player[:player_round].net_scores[i]
+        end
         team_score = {
-          players: [team[0][:player], team[1][:player]],
-          scores: [
-            team[0][:player_round].net_scores[i],
-            team[1][:player_round].net_scores[i]
-          ]
+          players: players,
+          scores: scores
         }
         team_score[:scores].sort!
         low_score = team_score[:scores][0] if team_score[:scores][0] < low_score
@@ -46,9 +49,10 @@ class Vegas
           team_score[:scores].reverse!
           team_score[:scores].map! {|s| s * this_multiplier}
         end
-        score = Vegas.score(team_score[:scores])
-        player_points[team_score[:players][0]] += score
-        player_points[team_score[:players][1]] += score
+        score = Vegas.score(team_score[:scores], options)
+        team_score[:players].each do |player|
+          player_points[player] += score
+        end
       end
     end
     max_score = nil
@@ -63,7 +67,7 @@ class Vegas
     return player_points
   end
 
-  def self.score(team_score_array)
+  def self.score(team_score_array, options)
     score1 = team_score_array[0] + (team_score_array[1] / 10)
     score2 = team_score_array[1] % 10
     return (score1.to_s + score2.to_s).to_i

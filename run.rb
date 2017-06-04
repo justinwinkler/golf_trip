@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
 require_relative 'lib/data_util.rb'
 
-DataUtil.load('example2')
+DataUtil.load(ARGV[0])
 
 Course.print_all
 Round.print_all

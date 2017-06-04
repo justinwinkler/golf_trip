@@ -20,38 +20,37 @@ class DataUtil
   end
 
   # Produces a matrix with 18 rows (1 per hole), each row an array of arrays,
-  # the inner arrays representing pairs of players teamed up for that hole.
-  def self.team_matrix(players, hole_count)
+  # the inner arrays representing teams of players teamed up for that hole.
+  def self.team_matrix(players, hole_count, team_size)
     result = []
-    pairs = players.combination(2).to_a
-    remaining_pairs = []
+    teams = players.combination(team_size).to_a
+    remaining_teams = []
     count = 0
-    hole_pairs = []
+    hole_teams = []
     (0...18).each do
       if count == hole_count
         count = 0
       elsif count < hole_count && count > 0
-        result << hole_pairs
+        result << hole_teams
         count += 1
         next
       end
       count += 1
-      remaining_pairs = pairs.clone if remaining_pairs.empty?
-      hole_pairs = []
+      remaining_teams = teams.clone if remaining_teams.empty?
+      hole_teams = []
       players_included = []
-      pairs_to_delete = []
-      remaining_pairs.each_with_index do |pair, i|
-        if !players_included.include?(pair[0]) && !players_included.include?(pair[1])
-          players_included << pair[0]
-          players_included << pair[1]
-          hole_pairs << pair
-          pairs_to_delete << i
+      teams_to_delete = []
+      remaining_teams.each_with_index do |team, i|
+        if (players_included & team).empty?
+          players_included.push(*team)
+          hole_teams << team
+          teams_to_delete << i
         end
       end
-      pairs_to_delete.reverse.each do |i|
-        remaining_pairs.delete_at(i)
+      teams_to_delete.reverse.each do |i|
+        remaining_teams.delete_at(i)
       end
-      result << hole_pairs
+      result << hole_teams
     end
     return result
   end

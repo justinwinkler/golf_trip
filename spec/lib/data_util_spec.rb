@@ -2,7 +2,7 @@ require_relative '../../lib/data_util.rb'
 
 RSpec.describe DataUtil, ".team_matrix" do
   it "produces expected result for 4-some that cycles partners every hole" do
-    result = DataUtil.team_matrix [1,2,3,4], 1
+    result = DataUtil.team_matrix [1,2,3,4], 1, 2
     expect(result).to eq([
       [[1,2], [3,4]],
       [[1,3], [2,4]],
@@ -25,7 +25,7 @@ RSpec.describe DataUtil, ".team_matrix" do
   end
 
   it "produces expected result for 4-some that cycles partners @ 3 holes" do
-    result = DataUtil.team_matrix [1,2,3,4], 3
+    result = DataUtil.team_matrix [1,2,3,4], 3, 2
     expect(result).to eq([
       [[1,2], [3,4]],
       [[1,2], [3,4]],
@@ -48,7 +48,7 @@ RSpec.describe DataUtil, ".team_matrix" do
   end
 
   it "produces expected result for 4-some that cycles partners @ 3 holes" do
-    result = DataUtil.team_matrix [1,2,3,4], 3
+    result = DataUtil.team_matrix [1,2,3,4], 3, 2
     expect(result).to eq([
       [[1,2], [3,4]],
       [[1,2], [3,4]],
@@ -71,7 +71,7 @@ RSpec.describe DataUtil, ".team_matrix" do
   end
 
   it "produces expected result for 4-some that cycles partners every hole" do
-    result = DataUtil.team_matrix [1,2,3,4], 1
+    result = DataUtil.team_matrix [1,2,3,4], 1, 2
     expect(result).to eq([
       [[1,2], [3,4]],
       [[1,3], [2,4]],
@@ -94,7 +94,7 @@ RSpec.describe DataUtil, ".team_matrix" do
   end
 
   it "produces expected result for 8-some that cycles partners every hole" do
-    result = DataUtil.team_matrix [1,2,3,4,5,6,7,8], 1
+    result = DataUtil.team_matrix [1,2,3,4,5,6,7,8], 1, 2
     expect(result).to eq([
       [[1,2], [3,4], [5,6], [7,8]],
       [[1,3], [2,4], [5,7], [6,8]],
@@ -114,5 +114,28 @@ RSpec.describe DataUtil, ".team_matrix" do
       [[1,3], [2,4], [5,7], [6,8]],
       [[1,4], [2,3], [5,8], [6,7]],
       [[1,5], [2,6], [3,7], [4,8]]])
+  end
+
+  it "produces expected result for 8-some in teams of 4 for entire round" do
+    result = DataUtil.team_matrix [1,2,3,4,5,6,7,8], 18, 4
+    expect(result).to eq([
+      [[1,2,3,4], [5,6,7,8]],
+      [[1,2,3,4], [5,6,7,8]],
+      [[1,2,3,4], [5,6,7,8]],
+      [[1,2,3,4], [5,6,7,8]],
+      [[1,2,3,4], [5,6,7,8]],
+      [[1,2,3,4], [5,6,7,8]],
+      [[1,2,3,4], [5,6,7,8]],
+      [[1,2,3,4], [5,6,7,8]],
+      [[1,2,3,4], [5,6,7,8]],
+      [[1,2,3,4], [5,6,7,8]],
+      [[1,2,3,4], [5,6,7,8]],
+      [[1,2,3,4], [5,6,7,8]],
+      [[1,2,3,4], [5,6,7,8]],
+      [[1,2,3,4], [5,6,7,8]],
+      [[1,2,3,4], [5,6,7,8]],
+      [[1,2,3,4], [5,6,7,8]],
+      [[1,2,3,4], [5,6,7,8]],
+      [[1,2,3,4], [5,6,7,8]]])
   end
 end
