@@ -2,8 +2,10 @@
 # If any team member scores birdie, all other teams that did not have at least
 # one player with a birdie have their score flipped, e.g. 45 -> 54.
 # Same applies for teams where one member has an eagle, except those teams that
-# are flipped are then also doubled, e.g. 45 -> 108. If the team being flipped
-# had a birdie, they are not doubled.
+# are flipped are then also doubled, e.g. 45 -> 108. If the lowest score of the
+# team being flipped is only 1 worse than the lowest score of the best team,
+# they are not doubled (birdie when low team has eagle, eagle when low team has
+# double-eagle).
 # Double-digit player scores carry over, e.g. 4 + 10 -> 50, but any flipping
 # is done before the combination, e.g. 4 + 10 -> 10 + 4 -> 104
 class Vegas
