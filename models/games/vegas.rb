@@ -69,8 +69,6 @@ class Vegas
   end
 
   def self.score(team_score_array, options)
-    # TODO: Reversing is happening before here, so when 4 player scores, 5,5,5,7, should
-    # it always be 55, or does the 7 come into play on reversal?
     indexes = [0,1]
     indexes = options[:score_indexes].split('&').map(&:to_i) if options[:score_indexes]
     score = 0
