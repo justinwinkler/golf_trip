@@ -65,4 +65,26 @@ RSpec.describe Vegas do
       end
     end
   end
+
+  context 'with teams of 4, taking best and 3rd best scores' do
+    before(:each) do
+      DataUtil.load('example3')
+    end
+
+    describe '#run' do
+      it 'returns expected matrix' do
+        players_and_rounds_matrix = Game.players_and_rounds_matrix(Player.all, 1)
+        team_matrix = DataUtil.team_matrix(players_and_rounds_matrix, 18, 4)
+        result = vegas.run(team_matrix, Course.get('BR'), {:score_indexes => '0&2'})
+        expect(result[Player.all[0]]).to eq(0)
+        expect(result[Player.all[1]]).to eq(0)
+        expect(result[Player.all[2]]).to eq(0)
+        expect(result[Player.all[3]]).to eq(0)
+        expect(result[Player.all[4]]).to eq(0)
+        expect(result[Player.all[5]]).to eq(0)
+        expect(result[Player.all[6]]).to eq(0)
+        expect(result[Player.all[7]]).to eq(0)
+      end
+    end
+  end
 end

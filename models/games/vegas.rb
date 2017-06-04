@@ -12,8 +12,9 @@ class Vegas
   def run(team_matrix, course, options = {})
     player_points = {}
     team_matrix[0].each do |team|
-      player_points[team[0][:player]] = 0
-      player_points[team[1][:player]] = 0
+      team.each do |player|
+        player_points[player[:player]] = 0
+      end
     end
     team_matrix.each_with_index do |hole, i|
       team_scores = []
@@ -68,8 +69,14 @@ class Vegas
   end
 
   def self.score(team_score_array, options)
-    score1 = team_score_array[0] + (team_score_array[1] / 10)
-    score2 = team_score_array[1] % 10
-    return (score1.to_s + score2.to_s).to_i
+    # TODO: Reversing is happening before here, so when 4 player scores, 5,5,5,7, should
+    # it always be 55, or does the 7 come into play on reversal?
+    indexes = [0,1]
+    indexes = options[:score_indexes].split('&').map(&:to_i) if options[:score_indexes]
+    score = 0
+    indexes.each_with_index do |i, j|
+      score += team_score_array[i] * (10 ** (indexes.length - 1 - j))
+    end
+    return score
   end
 end
