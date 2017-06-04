@@ -15,7 +15,7 @@ class Vegas
     end
     team_matrix.each_with_index do |hole, i|
       team_scores = []
-      low_score = 100
+      low_score = 1_000
       hole.each do |team|
         team_score = {
           players: [team[0][:player], team[1][:player]],
