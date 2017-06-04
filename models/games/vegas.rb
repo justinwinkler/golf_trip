@@ -42,15 +42,15 @@ class Vegas
         multiplier = par - low_score
       end
       team_scores.each do |team_score|
-        if reverse_scores && !team_score[:scores].include?(low_score)
+        this_reverse_scores = reverse_scores && !team_score[:scores].include?(low_score)
+        if this_reverse_scores
           this_multiplier = multiplier
           if team_score[:scores][0] < par
             this_multiplier -= (par - team_score[:scores][0])
           end
-          team_score[:scores].reverse!
           team_score[:scores].map! {|s| s * this_multiplier}
         end
-        score = Vegas.score(team_score[:scores], options)
+        score = Vegas.score(team_score[:scores], this_reverse_scores, options)
         team_score[:players].each do |player|
           player_points[player] += score
         end
@@ -68,12 +68,17 @@ class Vegas
     return player_points
   end
 
-  def self.score(team_score_array, options)
+  def self.score(team_score_array, reverse, options)
     indexes = [0,1]
     indexes = options[:score_indexes].split('&').map(&:to_i) if options[:score_indexes]
-    score = 0
+    scores = []
     indexes.each_with_index do |i, j|
-      score += team_score_array[i] * (10 ** (indexes.length - 1 - j))
+      scores << team_score_array[i]
+    end
+    scores.reverse! if reverse
+    score = 0
+    scores.each_with_index do |s, j|
+      score += s * (10 ** (scores.length - 1 - j))
     end
     return score
   end
