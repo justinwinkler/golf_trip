@@ -58,10 +58,6 @@ class Vegas
     player_points.each do |player, score|
       player_points[player] = (score - max_score) * -1
     end
-    player_points.each do |player, score|
-      puts "Player " + player.symbol + ": " + score.to_s
-    end
-
     return player_points
   end
 

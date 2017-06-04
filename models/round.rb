@@ -19,8 +19,12 @@ class Round
     return nil
   end
 
+  def self.clear
+    @@rounds = nil
+  end
+
   def self.load_all(trip)
-    return @@rounds if defined? @@rounds
+    return @@rounds if (defined? @@rounds) && @@rounds
     @@rounds = []
     File.foreach("data/" + trip + "/rounds.txt").with_index do |l, i|
       values = l.strip.split(',')

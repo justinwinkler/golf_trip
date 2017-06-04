@@ -33,8 +33,12 @@ class Player
     throw "Unknown player: " + symbol
   end
 
+  def self.clear
+    @@players = nil
+  end
+
   def self.load_all(trip)
-    return @@players if defined? @@players
+    return @@players if (defined? @@players) && @@players
     @@players = []
     player_files = Dir["data/" + trip + "/players/*"]
     player_files.each do |player_file|

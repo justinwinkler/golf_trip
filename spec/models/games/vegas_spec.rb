@@ -47,4 +47,22 @@ RSpec.describe Vegas do
       expect(Vegas.score([11,10])).to eq(120)
     end
   end
+
+  context 'when all players should be equal' do
+    before(:each) do
+      DataUtil.load('example2')
+    end
+
+    describe '#run' do
+      it 'returns expected matrix' do
+        players_and_rounds_matrix = Game.players_and_rounds_matrix(Player.all, 1)
+        team_matrix = DataUtil.team_matrix(players_and_rounds_matrix, 1)
+        result = vegas.run(team_matrix, Course.get('BR'))
+        expect(result[Player.all[0]]).to eq(0)
+        expect(result[Player.all[1]]).to eq(0)
+        expect(result[Player.all[2]]).to eq(0)
+        expect(result[Player.all[3]]).to eq(0)
+      end
+    end
+  end
 end

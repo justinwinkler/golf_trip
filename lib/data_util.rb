@@ -4,7 +4,15 @@ require_relative '../models/player.rb'
 require_relative '../models/round.rb'
 
 class DataUtil
+  def self.clear
+    Course.clear
+    Round.clear
+    Player.clear
+    Game.clear
+  end
+
   def self.load(trip)
+    DataUtil.clear
     Course.load_all(trip)
     Round.load_all(trip)
     Player.load_all(trip)

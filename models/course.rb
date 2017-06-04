@@ -16,8 +16,12 @@ class Course
     return @name
   end
 
+  def self.clear
+    @@courses = nil
+  end
+
   def self.load_all(trip)
-    return @@courses if defined? @@courses
+    return @@courses if (defined? @@courses) && @@courses
     @@courses = []
     course_files = Dir["data/" + trip + "/courses/*"]
     course_files.each do |course_file|

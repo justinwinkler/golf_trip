@@ -44,8 +44,12 @@ class Game
     return @@games
   end
 
+  def self.clear
+    @@games = nil
+  end
+
   def self.load_all(trip)
-    return @@games if defined? @@games
+    return @@games if (defined? @@games) && @@games
     @@games = []
     File.foreach("data/" + trip + "/games.txt").with_index do |l, i|
       values = l.strip.split(',')
