@@ -25,7 +25,8 @@ class Payout
     @players.each do |payer|
       @players.each do |payee|
         if payer != payee
-          owes(payer, payee, player_points[payee] * price_per_point)
+          points = BigDecimal.new(player_points[payee])
+          owes(payer, payee, points * price_per_point)
         end
       end
     end

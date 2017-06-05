@@ -1,3 +1,4 @@
+require 'bigdecimal'
 require_relative '../lib/data_util.rb'
 require_relative 'player.rb'
 require_relative 'games/skins.rb'
@@ -59,7 +60,7 @@ class Game
       hole_count = values[3].to_i
       team_size = values[4].to_i
       options = {}
-      price_per_point = values[5].to_f
+      price_per_point = BigDecimal.new(values[5])
       (values[6] || '').split('|').each do |key_value|
         options[key_value.split('=')[0].to_sym] = key_value.split('=')[1]
       end

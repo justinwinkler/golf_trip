@@ -37,8 +37,8 @@ RSpec.describe Game do
 
     it "calculates the payout" do
       @game.run
-      expect(@game.payout.owed(Player.all[0], Player.all[1])).to be_within(0.001).of(2.55)
-      expect(@game.payout.owed(Player.all[1], Player.all[0])).to be_within(0.001).of(2.45)
+      expect(@game.payout.owed(Player.all[0], Player.all[1])).to eq(2.55)
+      expect(@game.payout.owed(Player.all[1], Player.all[0])).to eq(2.45)
     end
   end
 end
