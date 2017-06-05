@@ -4,7 +4,7 @@ require_relative 'games/skins.rb'
 require_relative 'games/vegas.rb'
 
 class Game
-  attr_reader :player_matrix, :rules, :round, :players, :hole_count, :team_size, :options
+  attr_reader :rules, :round, :players, :hole_count, :team_size, :options, :team_matrix, :player_points, :payout
 
   def initialize(rules, round, players, hole_count, team_size, options)
     @rules = rules
@@ -13,24 +13,14 @@ class Game
     @hole_count = hole_count
     @team_size = team_size
     @options = options
+    players_and_rounds = Game.players_and_rounds(@players, @round.number)
+    @team_matrix = DataUtil.team_matrix(players_and_rounds, @hole_count, @team_size)
+    @payout = Payout.new(players)
   end
 
   def run
-    puts "Round #" + @round.number.to_s + ": " + rules.class.name
-    players_and_rounds = Game.players_and_rounds(@players, @round.number)
-    team_matrix = DataUtil.team_matrix(players_and_rounds, @hole_count, @team_size)
-    team_matrix.each_with_index do |hole, i|
-      print "Hole " + (i + 1).to_s
-      hole.each do |team|
-        print ' : '
-        team.each_with_index do |player, j|
-          print ' & ' if j > 0
-          print player[:player].symbol
-        end
-      end
-      puts
-    end
-    @player_matrix = rules.run(team_matrix, @round.course)
+    @player_points = rules.run(@team_matrix, @round.course)
+    @payout.add_points(@player_points)
   end
 
   def to_s
@@ -78,7 +68,18 @@ class Game
 
   def self.print_all
     @@games.each do |game|
-      PrintUtil.print_matrix(game.players, game.player_matrix)
+      puts 'Round #' + game.round.number.to_s + ': ' + game.rules.class.name
+      game.team_matrix.each_with_index do |hole, i|
+        print 'Hole ' + (i + 1).to_s
+        hole.each do |team|
+          print ' : '
+          team.each_with_index do |player, j|
+            print ' & ' if j > 0
+            print player[:player].symbol
+          end
+        end
+        puts
+      end
     end
   end
 

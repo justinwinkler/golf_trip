@@ -15,7 +15,7 @@ RSpec.describe Vegas do
   end
 
   describe '#run' do
-    it 'returns expected matrix' do
+    it 'returns expected result' do
       players_and_rounds = Game.players_and_rounds(Player.all, 1)
       team_matrix = DataUtil.team_matrix(players_and_rounds, 1, 2)
       result = vegas.run(team_matrix, Course.get('OK'))

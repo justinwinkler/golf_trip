@@ -27,4 +27,14 @@ RSpec.describe Game do
       expect(result[7][:player_round]).to eq(Player.all[7].player_rounds[1])
     end
   end
+
+  describe "#run" do
+    it "executes the game and stores the resulting points" do
+
+    end
+
+    it "calculates the payout" do
+
+    end
+  end
 end
