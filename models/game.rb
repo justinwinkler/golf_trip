@@ -16,9 +16,9 @@ class Game
   end
 
   def run
-    team_matrix =
-      DataUtil.team_matrix(
-        Game.players_and_rounds_matrix(players, round.number), hole_count, team_size)
+    puts "Round #" + @round.number.to_s + ": " + rules.class.name
+    players_and_rounds = Game.players_and_rounds(@players, @round.number)
+    team_matrix = DataUtil.team_matrix(players_and_rounds, @hole_count, @team_size)
     team_matrix.each_with_index do |hole, i|
       print "Hole " + (i + 1).to_s
       hole.each do |team|
@@ -37,7 +37,7 @@ class Game
     return "Round %s, %s" % [round.number, rules.class.name]
   end
 
-  def self.players_and_rounds_matrix(players, round_number)
+  def self.players_and_rounds(players, round_number)
     return players.map do |player|
       player_round = player.player_rounds.find do |x|
         x.round.number == round_number

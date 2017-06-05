@@ -17,9 +17,9 @@ RSpec.describe Game do
     end
   end
 
-  describe ".players_and_rounds_matrix" do
+  describe ".players_and_rounds" do
     it "produces expected matrix" do
-      result = Game.players_and_rounds_matrix(Player.all, 2)
+      result = Game.players_and_rounds(Player.all, 2)
       expect(result.length).to eq(8)
       expect(result[0][:player]).to eq(Player.all[0])
       expect(result[0][:player_round]).to eq(Player.all[0].player_rounds[1])

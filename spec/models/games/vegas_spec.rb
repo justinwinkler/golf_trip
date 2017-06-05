@@ -16,8 +16,8 @@ RSpec.describe Vegas do
 
   describe '#run' do
     it 'returns expected matrix' do
-      players_and_rounds_matrix = Game.players_and_rounds_matrix(Player.all, 1)
-      team_matrix = DataUtil.team_matrix(players_and_rounds_matrix, 1, 2)
+      players_and_rounds = Game.players_and_rounds(Player.all, 1)
+      team_matrix = DataUtil.team_matrix(players_and_rounds, 1, 2)
       result = vegas.run(team_matrix, Course.get('OK'))
       expect(result[Player.all[0]]).to eq(49)
       expect(result[Player.all[1]]).to eq(51)
@@ -67,8 +67,8 @@ RSpec.describe Vegas do
 
     describe '#run' do
       it 'returns expected matrix' do
-        players_and_rounds_matrix = Game.players_and_rounds_matrix(Player.all, 1)
-        team_matrix = DataUtil.team_matrix(players_and_rounds_matrix, 1, 2)
+        players_and_rounds = Game.players_and_rounds(Player.all, 1)
+        team_matrix = DataUtil.team_matrix(players_and_rounds, 1, 2)
         result = vegas.run(team_matrix, Course.get('BR'))
         expect(result[Player.all[0]]).to eq(0)
         expect(result[Player.all[1]]).to eq(0)
@@ -85,8 +85,8 @@ RSpec.describe Vegas do
 
     describe '#run' do
       it 'returns expected matrix' do
-        players_and_rounds_matrix = Game.players_and_rounds_matrix(Player.all, 1)
-        team_matrix = DataUtil.team_matrix(players_and_rounds_matrix, 18, 4)
+        players_and_rounds = Game.players_and_rounds(Player.all, 1)
+        team_matrix = DataUtil.team_matrix(players_and_rounds, 18, 4)
         result = vegas.run(team_matrix, Course.get('OK'), {:score_indexes => '0&2'})
         expect(result[Player.all[0]]).to eq(0)
         expect(result[Player.all[1]]).to eq(0)
