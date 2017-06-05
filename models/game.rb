@@ -4,14 +4,16 @@ require_relative 'games/skins.rb'
 require_relative 'games/vegas.rb'
 
 class Game
-  attr_reader :rules, :round, :players, :hole_count, :team_size, :options, :team_matrix, :player_points, :payout
+  attr_reader :rules, :round, :players, :hole_count, :team_size, :options,
+    :team_matrix, :player_points, :payout, :price_per_point
 
-  def initialize(rules, round, players, hole_count, team_size, options)
+  def initialize(rules, round, players, hole_count, team_size, price_per_point, options)
     @rules = rules
     @round = round
     @players = players
     @hole_count = hole_count
     @team_size = team_size
+    @price_per_point = price_per_point
     @options = options
     players_and_rounds = Game.players_and_rounds(@players, @round.number)
     @team_matrix = DataUtil.team_matrix(players_and_rounds, @hole_count, @team_size)
@@ -20,7 +22,7 @@ class Game
 
   def run
     @player_points = rules.run(@team_matrix, @round.course)
-    @payout.add_points(@player_points)
+    @payout.add_points(@player_points, price_per_point)
   end
 
   def to_s
@@ -57,10 +59,12 @@ class Game
       hole_count = values[3].to_i
       team_size = values[4].to_i
       options = {}
-      (values[5] || '').split('|').each do |key_value|
+      price_per_point = values[5].to_f
+      (values[6] || '').split('|').each do |key_value|
         options[key_value.split('=')[0].to_sym] = key_value.split('=')[1]
       end
-      game = Game.new(rules_class.new, round, players, hole_count, team_size, options)
+      game = Game.new(
+        rules_class.new, round, players, hole_count, team_size, price_per_point, options)
       @@games << game
     end
     return @@games
