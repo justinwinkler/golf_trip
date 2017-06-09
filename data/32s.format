@@ -1,5 +1,7 @@
-Format: round,putter,count
+Format: round,hole,challenger,putter,putts
 Definitions:
 - round: Round #
+- hole: Hole #
+- challenger: player symbol of person that called 32
 - putter: player symbol of putter
-- count: count of 3 putts for that round by the putter
+- putts: # of putts taken

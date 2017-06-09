@@ -1,5 +1,5 @@
-Format: round,putter,count
+Format: round,hole,putter
 Definitions:
 - round: Round #
+- hole: Hole #
 - putter: player symbol of putter
-- count: count of 3 putts for that round by the putter
