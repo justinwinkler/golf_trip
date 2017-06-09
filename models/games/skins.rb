@@ -8,7 +8,6 @@ class Skins
     end
     carryover = 0
     team_matrix.each_with_index do |hole, i|
-      puts "hole " + (i + 1).to_s
       team_scores = []
       low_score = 1_000
       low_score_skin = false
@@ -23,7 +22,6 @@ class Skins
           players: players,
           score: scores.sort[0]
         }
-        puts team_score[:score]
         if team_score[:score] < low_score
           low_score = team_score[:score] 
           low_score_skin = true

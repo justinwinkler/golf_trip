@@ -17,9 +17,6 @@ RSpec.describe Skins do
   describe '#run' do
     it 'returns expected matrix' do
       players_and_rounds = Game.players_and_rounds(Player.all, 2)
-      players_and_rounds.each do |player_and_round|
-        puts player_and_round[:player_round].net_scores.join(',')
-      end
       team_matrix = DataUtil.team_matrix(players_and_rounds, 1, 2)
       result = skins.run(team_matrix, Course.get('BR'))
       expect(result[Player.all[0]]).to eq(3)
