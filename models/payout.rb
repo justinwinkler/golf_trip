@@ -18,7 +18,8 @@ class Payout
   end
 
   def owed(payer, payee)
-    return @money_map[key(payer, payee)][:amount]
+    entry = @money_map[key(payer, payee)]
+    return entry ? entry[:amount] : 0
   end
 
   def add_points(player_points, price_per_point)

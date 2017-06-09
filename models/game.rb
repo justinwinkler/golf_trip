@@ -1,5 +1,6 @@
 require 'bigdecimal'
 require_relative '../lib/data_util.rb'
+require_relative 'payout.rb'
 require_relative 'player.rb'
 require_relative 'games/skins.rb'
 require_relative 'games/vegas.rb'
