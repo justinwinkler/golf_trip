@@ -1,0 +1,3 @@
+class ThirtyTwo
+
+end
