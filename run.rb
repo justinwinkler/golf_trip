@@ -10,6 +10,7 @@ Player.print_all
 payout = Game.get_payout
 payout += ThirtyTwo.get_payout
 payout += ThreePutt.get_payout
+payout = payout.simplify
 
 Game.print_all
 puts payout.to_s

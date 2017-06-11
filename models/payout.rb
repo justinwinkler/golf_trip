@@ -49,10 +49,22 @@ class Payout
     return total
   end
 
+  def simplify
+    simplified = Payout.new(@players)
+    @players.each do |payer|
+      @players.each do |payee|
+        payer_owed = owed(payer, payee)
+        payee_owed = owed(payee, payer)
+        if payer_owed > payee_owed
+          simplified.owes(payer, payee, payer_owed - payee_owed)
+        end
+      end
+    end
+    return simplified
+  end
+
   def to_s
-    result = 'Payer On Top'.center((@players.size + 1) * 15 + 6)
-    result << "\n"
-    result << ' '  * 21
+    result = ' '  * 21
     @players.each do |player|
       result << player.name.rjust(15)
     end

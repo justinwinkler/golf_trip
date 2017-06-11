@@ -74,4 +74,20 @@ RSpec.describe Payout do
       expect(@payout.owed(Player.all[2], Player.all[1])).to eq(5)
     end
   end
+
+  describe '#simplify' do
+    it 'simplifies the payout' do
+      @payout.owes(Player.all[0], Player.all[1], BigDecimal.new('0.5'))
+      @payout.owes(Player.all[0], Player.all[2], BigDecimal.new('1.5'))
+      @payout.owes(Player.all[0], Player.all[3], BigDecimal.new('2.5'))
+      @payout.owes(Player.all[1], Player.all[0], BigDecimal.new('0.4'))
+      @payout.owes(Player.all[2], Player.all[0], BigDecimal.new('2'))
+      @payout = @payout.simplify
+      expect(@payout.owed(Player.all[0], Player.all[1])).to eq(0.1)
+      expect(@payout.owed(Player.all[1], Player.all[0])).to eq(0)
+      expect(@payout.owed(Player.all[0], Player.all[2])).to eq(0)
+      expect(@payout.owed(Player.all[2], Player.all[0])).to eq(0.5)
+      expect(@payout.owed(Player.all[0], Player.all[3])).to eq(2.5)
+    end
+  end
 end
