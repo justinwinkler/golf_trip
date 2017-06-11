@@ -83,6 +83,23 @@ class Payout
     return result
   end
 
+  def net
+    result = ''
+    @players.each do |player|
+      result << player.name.rjust(15)
+    end
+    result << "\n"
+    @players.each do |player|
+      total = 0
+      @players.each do |other|
+        total -= owed(player, other)
+        total += owed(other, player)
+      end
+      result << total.to_s('2F').rjust(15)
+    end
+    return result
+  end
+
   private
 
   def key(payer, payee)
