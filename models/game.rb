@@ -7,7 +7,7 @@ require_relative 'games/vegas.rb'
 
 class Game
   attr_reader :rules, :round, :players, :hole_count, :team_size, :options,
-    :team_matrix, :player_points, :payout, :price_per_point
+    :team_matrix, :player_points, :price_per_point
 
   def initialize(rules, round, players, hole_count, team_size, price_per_point, options)
     @rules = rules
@@ -19,12 +19,11 @@ class Game
     @options = options
     players_and_rounds = Game.players_and_rounds(@players, @round.number)
     @team_matrix = DataUtil.team_matrix(players_and_rounds, @hole_count, @team_size)
-    @payout = Payout.new(players)
   end
 
-  def run
+  def get_payout
     @player_points = rules.run(@team_matrix, @round.course)
-    @payout.add_points(@player_points, price_per_point)
+    return Payout.new(players).add_points(@player_points, price_per_point)
   end
 
   def to_s
@@ -42,6 +41,19 @@ class Game
 
   def self.all
     return @@games
+  end
+
+  def self.get_payout
+    payout = nil
+    @@games.each do |game|
+      new_payout = game.get_payout
+      if !payout
+        payout = new_payout
+      else
+        payout += new_payout
+      end
+    end
+    return payout
   end
 
   def self.clear
@@ -98,9 +110,5 @@ class Game
     else
       throw "Invalid game: " + symbol
     end
-  end
-
-  def self.run_all
-    @@games.each(&:run)
   end
 end

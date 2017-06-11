@@ -28,17 +28,11 @@ RSpec.describe Game do
     end
   end
 
-  describe "#run" do
-    it "executes the game and stores the resulting points" do
-      @game.run
-      expect(@game.player_points[Player.all[0]]).to eq(49)
-      expect(@game.player_points[Player.all[1]]).to eq(51)
-    end
-
+  describe "#get_payout" do
     it "calculates the payout" do
-      @game.run
-      expect(@game.payout.owed(Player.all[0], Player.all[1])).to eq(2.55)
-      expect(@game.payout.owed(Player.all[1], Player.all[0])).to eq(2.45)
+      payout = @game.get_payout
+      expect(payout.owed(Player.all[0], Player.all[1])).to eq(2.55)
+      expect(payout.owed(Player.all[1], Player.all[0])).to eq(2.45)
     end
   end
 end

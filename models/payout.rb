@@ -31,6 +31,7 @@ class Payout
         end
       end
     end
+    return self
   end
 
   def +(payout)
