@@ -7,6 +7,9 @@ Course.print_all
 Round.print_all
 Player.print_all
 
-Game.run_all
+payout = Game.get_payout
+payout += ThirtyTwo.get_payout
+payout += ThreePutt.get_payout
 
 Game.print_all
+puts payout.to_s

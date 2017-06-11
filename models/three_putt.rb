@@ -44,14 +44,9 @@ class ThreePutt
   end
 
   def self.get_payout
-    payout = nil
+    payout = Payout.new(Player.all)
     @@three_putts.each do |three_putt|
-      new_payout = three_putt.get_payout
-      if !payout
-        payout = new_payout
-      else
-        payout += new_payout
-      end
+      payout += three_putt.get_payout
     end
     return payout
   end

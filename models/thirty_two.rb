@@ -55,14 +55,9 @@ class ThirtyTwo
   end
 
   def self.get_payout
-    payout = nil
+    payout = Payout.new(Player.all)
     @@thirty_twos.each do |thirty_two|
-      new_payout = thirty_two.get_payout
-      if !payout
-        payout = new_payout
-      else
-        payout += new_payout
-      end
+      payout += thirty_two.get_payout
     end
     return payout
   end
