@@ -1,7 +1,7 @@
 require_relative '../../models/thirty_two.rb'
 require_relative '../../lib/data_util.rb'
 
-RSpec.describe Course do
+RSpec.describe ThirtyTwo do
   before(:each) do
     DataUtil.load('example')
   end

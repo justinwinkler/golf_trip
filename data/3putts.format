@@ -1,5 +1,6 @@
-Format: round,hole,putter
+Format: round,hole,putter,payees
 Definitions:
 - round: Round #
 - hole: Hole #
 - putter: player symbol of putter
+- payees: player symbols of players the putter owes
