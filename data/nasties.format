@@ -1,0 +1,6 @@
+Format: round,hole,player,payers
+Definitions:
+- round: Round #
+- hole: Hole #
+- player: player symbol
+- payers: player symbols of those that owe the player

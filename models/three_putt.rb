@@ -1,3 +1,5 @@
+require 'bigdecimal'
+
 require_relative 'payout.rb'
 require_relative 'player.rb'
 

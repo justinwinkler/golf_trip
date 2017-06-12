@@ -1,7 +1,11 @@
+require_relative '../models/barkie.rb'
 require_relative '../models/course.rb'
 require_relative '../models/game.rb'
+require_relative '../models/greenie.rb'
+require_relative '../models/nastie.rb'
 require_relative '../models/player.rb'
 require_relative '../models/round.rb'
+require_relative '../models/sandie.rb'
 require_relative '../models/thirty_two.rb'
 require_relative '../models/three_putt.rb'
 
@@ -13,6 +17,10 @@ class DataUtil
     Game.clear
     ThirtyTwo.clear
     ThreePutt.clear
+    Barkie.clear
+    Greenie.clear
+    Nastie.clear
+    Sandie.clear
   end
 
   def self.load(trip)
@@ -23,6 +31,10 @@ class DataUtil
     Game.load_all(trip)
     ThirtyTwo.load_all(trip)
     ThreePutt.load_all(trip)
+    Barkie.load_all(trip)
+    Greenie.load_all(trip)
+    Nastie.load_all(trip)
+    Sandie.load_all(trip)
   end
 
   # Produces a matrix with 18 rows (1 per hole), each row an array of arrays,
