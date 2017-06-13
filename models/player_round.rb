@@ -9,7 +9,8 @@ class PlayerRound
   end
 
   def print
-    PrintUtil.print_card_header("%s Round %s" % [player.name, round.number])
+    PrintUtil.print_card_header(
+      "%s Round %s at %s" % [player.name, round.number, round.course.name])
     total_front = 0
     total_back = 0
     total = 0

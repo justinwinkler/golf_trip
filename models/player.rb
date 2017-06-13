@@ -72,6 +72,7 @@ class Player
     @@players.each_with_index do |player, i|
       puts "Player #%d: %s (%.2f handicap, %d rounded)" %
         [i + 1, player.name, player.handicap, player.applied_handicap]
+      player.player_rounds.each(&:print)
     end
   end
 

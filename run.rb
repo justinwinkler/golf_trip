@@ -19,7 +19,7 @@ payout =
   greenie_payout +
   nastie_payout +
   sandie_payout
-    
+
 payout = payout.simplify
 
 Course.print_all

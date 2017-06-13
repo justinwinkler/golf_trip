@@ -44,14 +44,9 @@ class Game
   end
 
   def self.get_payout
-    payout = nil
+    payout = Payout.new(Player.all)
     @@games.each do |game|
-      new_payout = game.get_payout
-      if !payout
-        payout = new_payout
-      else
-        payout += new_payout
-      end
+      payout += game.get_payout
     end
     return payout
   end
@@ -86,7 +81,8 @@ class Game
 
   def self.print_all
     @@games.each do |game|
-      puts 'Round #' + game.round.number.to_s + ': ' + game.rules.class.name
+      puts "Round #%s - %s : Teams".red %
+        [game.round.number.to_s, game.rules.class.name]
       game.team_matrix.each_with_index do |hole, i|
         print 'Hole ' + (i + 1).to_s
         hole.each do |team|
