@@ -27,29 +27,42 @@ Round.print_all
 Player.print_all
 Game.print_all
 
-puts "Game Payout".red
+puts "All Games Payout".red
 puts game_payout.to_s
+puts "All Games Net".red
+puts game_payout.net
 
-puts "32 Payout".red
+puts "32s Payout".red
 puts thirty_two_payout.to_s
+puts "32s Net".red
+puts thirty_two_payout.net
 
 puts "3-putt Payout".red
 puts three_putt_payout.to_s
+puts "3-putt Net".red
+puts three_putt_payout.net
 
 puts "Barkie Payout".red
 puts barkie_payout.to_s
+puts "Barkie Net".red
+puts barkie_payout.net
 
 puts "Greenie Payout".red
 puts greenie_payout.to_s
+puts "Greenie Net".red
+puts greenie_payout.net
 
 puts "Nastie Payout".red
 puts nastie_payout.to_s
+puts "Nastie Net".red
+puts nastie_payout.net
 
 puts "Sandie Payout".red
 puts sandie_payout.to_s
+puts "Sandie Net".red
+puts sandie_payout.net
 
 puts "Final Payout".red
 puts payout.to_s
-
-puts "Net Winnings".red
+puts "Final Net".red
 puts payout.net

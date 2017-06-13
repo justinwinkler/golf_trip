@@ -94,6 +94,13 @@ class Game
         end
         puts
       end
+      payout = game.get_payout.simplify
+      puts "Round #%s - %s : Payout".red %
+        [game.round.number.to_s, game.rules.class.name]
+      puts payout.to_s
+      puts "Round #%s - %s : Net".red %
+        [game.round.number.to_s, game.rules.class.name]
+      puts payout.net
     end
   end
 
