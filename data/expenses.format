@@ -1,0 +1,5 @@
+Format: amount,player,all_players
+Definitions:
+- amount: the amount to be split by some players
+- player: player that paid the amount
+- all_players: the players that are splitting the amount

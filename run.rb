@@ -10,8 +10,9 @@ barkie_payout = Barkie.get_payout.simplify
 greenie_payout = Greenie.get_payout.simplify
 nastie_payout = Nastie.get_payout.simplify
 sandie_payout = Sandie.get_payout.simplify
+expense_payout = Expense.get_payout.simplify
 
-payout =
+golf_payout =
   game_payout +
   thirty_two_payout +
   three_putt_payout +
@@ -19,8 +20,10 @@ payout =
   greenie_payout +
   nastie_payout +
   sandie_payout
+golf_payout = golf_payout.simplify
 
-payout = payout.simplify
+total_payout = golf_payout + expense_payout
+total_payout = total_payout.simplify
 
 Course.print_all
 Round.print_all
@@ -62,7 +65,15 @@ puts sandie_payout.to_s
 puts "Sandie Net".red
 puts sandie_payout.net
 
-puts "Final Payout".red
-puts payout.to_s
-puts "Final Net".red
-puts payout.net
+puts "Expense Payout".red
+puts expense_payout.to_s
+puts "Expense Net".red
+puts expense_payout.net
+
+puts "Golf Payout".red
+puts golf_payout.to_s
+puts "Golf Net".red
+puts golf_payout.net
+
+puts "Total Payout".red
+puts total_payout.to_s

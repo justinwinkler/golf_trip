@@ -73,7 +73,7 @@ class Payout
       result << payer.name.rjust(15) + ' owes:'
       @players.each do |payee|
         if payer != payee
-          result << owed(payer, payee).to_s('2F').rjust(15)
+          result << owed(payer, payee).to_s('3F').rjust(15)
         else
           result << ''.rjust(15)
         end
@@ -95,7 +95,7 @@ class Payout
         total -= owed(player, other)
         total += owed(other, player)
       end
-      result << total.to_s('2F').rjust(15)
+      result << total.to_s('3F').rjust(15)
     end
     return result
   end

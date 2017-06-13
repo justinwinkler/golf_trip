@@ -1,5 +1,6 @@
 require_relative '../models/barkie.rb'
 require_relative '../models/course.rb'
+require_relative '../models/expense.rb'
 require_relative '../models/game.rb'
 require_relative '../models/greenie.rb'
 require_relative '../models/nastie.rb'
@@ -21,6 +22,7 @@ class DataUtil
     Greenie.clear
     Nastie.clear
     Sandie.clear
+    Expense.clear
   end
 
   def self.load(trip)
@@ -35,6 +37,7 @@ class DataUtil
     Greenie.load_all(trip)
     Nastie.load_all(trip)
     Sandie.load_all(trip)
+    Expense.load_all(trip)
   end
 
   # Produces a matrix with 18 rows (1 per hole), each row an array of arrays,
