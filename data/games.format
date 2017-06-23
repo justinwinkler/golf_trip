@@ -1,8 +1,9 @@
-Format: round,game,players,hole_count,team_size,options
+Format: round,game,players,hole_count,team_size,price_per_point,options
 Definitions:
 - round: round #
 - game: game symbol
-- players: players in the game, in the order to be teamed up
+- players: players in the game, in the order to be teamed up, pipe delimited
 - hole_count: number of holes players are teamed up before rotating
 - team_size: number of players to put in each team
+- price_per_point: the price for each point earned
 - options: options specific to the game, format key1=value1|key2=value2

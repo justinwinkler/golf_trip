@@ -67,8 +67,8 @@ class Game
       end
       hole_count = values[3].to_i
       team_size = values[4].to_i
-      options = {}
       price_per_point = BigDecimal.new(values[5])
+      options = {}
       (values[6] || '').split('|').each do |key_value|
         options[key_value.split('=')[0].to_sym] = key_value.split('=')[1]
       end
