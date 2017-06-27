@@ -77,3 +77,5 @@ puts golf_payout.net
 
 puts "Total Payout".red
 puts total_payout.to_s
+puts "Total Net".red
+puts total_payout.net
