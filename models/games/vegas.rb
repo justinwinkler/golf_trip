@@ -10,6 +10,7 @@
 # is done before the combination, e.g. 4 + 10 -> 10 + 4 -> 104
 class Vegas
   def run(team_matrix, course, options = {})
+    net = (options[:net] == 'true')
     player_points = {}
     team_matrix[0].each do |team|
       team.each do |player|
@@ -24,7 +25,9 @@ class Vegas
         scores = []
         team.each do |player|
           players << player[:player]
-          scores << player[:player_round].net_scores[i]
+          scores << (net ?
+            player[:player_round].net_scores[i] :
+            player[:player_round].gross_scores[i])
         end
         team_score = {
           players: players,

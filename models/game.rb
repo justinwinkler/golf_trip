@@ -22,7 +22,7 @@ class Game
   end
 
   def get_payout
-    @player_points = rules.run(@team_matrix, @round.course)
+    @player_points = rules.run(@team_matrix, @round.course, @options)
     return Payout.new(players).add_points(@player_points, price_per_point)
   end
 
