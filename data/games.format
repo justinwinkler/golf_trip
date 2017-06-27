@@ -7,3 +7,30 @@ Definitions:
 - team_size: number of players to put in each team
 - price_per_point: the price for each point earned
 - options: options specific to the game, format key1=value1|key2=value2
+
+Games were:
+#1 at Old Kinderhook:  4 on 4 vegas, 1st and 3rd scores
+
+#2 at Buffalo Ridge:   Individual skins
+
+#3 at Buffalo Ridge:   4 on 4 skin
+
+#4 at Branson Hills:   Ryder
+  - Justin vs. Mike H.
+  - Chad vs. Derek
+  - Bob vs. Mike L.
+  - Tom vs. Devin
+
+#5 at Branson Hills:   3 on 3 scramble
+  - Ended in tie
+
+#6 at Ledgestone:      Pink ball, $5 each
+  - Justin & Chad & Tom & Bob vs. Devin & Derek & Mike H. & Mike L
+  - Payout entered in expenses file
+
+#7 at Ledgestone:      2 man scramble, skins, 4 teams:
+  - Justin & Devin
+  - Tom & Mike H.
+  - Chad & Mike L.
+  - Bob & Derek
+  - Scores entered, but handicap is being applied, should be gross

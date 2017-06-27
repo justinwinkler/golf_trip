@@ -1,4 +1,4 @@
-Format: amount,player,all_players
+Format: amount,player,all_players,description
 Definitions:
 - amount: the amount to be split by some players
 - player: player that paid the amount
